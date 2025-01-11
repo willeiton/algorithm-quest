@@ -1,0 +1,71 @@
+year0 [1982,1998]
+year1 [2013,2042]
+year2 [2010,2035]
+year3 [2022,2050]
+year4 [2047,2048]
+
+
+year0 [1982,1998]
+
+[2013,2042]
+year1[0] (2013) is between year0?
+no = 0
+
+[2010,2035]
+year2[0] (2013) is between year0?
+no = 0
+
+[2022,2050]
+year3[0] (2022) is between year0?
+no = 0
+
+[2047,2048]
+year4[0] (2047) is between year0?
+no = 0
+
+[1982] = 0
+
+------------------------------
+
+year1 [2013,2042]
+
+[1982,1998]
+year0[0] (1982) is between year1?
+no = 0
+
+[2010,2035]
+year2[0] (2010) is between year1?
+yes = 1
+
+[2022,2050]
+year3[0] (2022) is between year1?
+yes = 2
+
+[2047,2048]
+year4[0] (2047) is between year1?
+no = 1
+
+[2013] = 2
+
+
+------------------------------
+
+year3 [2022,2050]
+
+[1982,1998]
+year0[0] (1982) is between year3?
+no = 0
+
+[2013,2042]
+year1[0] (2013) is between year3?
+no = 0
+
+[2010,2035]
+year2[0] (2010) is between year3?
+yes = 
+
+[2047,2048]
+year4[0] (2047) is between year3?
+no = 
+
+[2022] = 
