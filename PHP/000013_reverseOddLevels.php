@@ -1,4 +1,17 @@
 <?php
+/**
+ * Definition for a binary tree node.
+ * class TreeNode {
+ *     public $val = null;
+ *     public $left = null;
+ *     public $right = null;
+ *     function __construct($val = 0, $left = null, $right = null) {
+ *         $this->val = $val;
+ *         $this->left = $left;
+ *         $this->right = $right;
+ *     }
+ * }
+ */
 class Solution {
 
   /**
@@ -6,53 +19,43 @@ class Solution {
    * @return TreeNode
    */
   function reverseOddLevels($root) {
-    $result[] = $root[0];
-    $key = 0;
-    $level = 1;
-    $nodeCounter = count($root) - 2;
-    $ac = 2;
-    while($key < $nodeCounter) {
-      $separator = $ac;
-      var_dump('$separator:' . $separator);
-      if ($level % 2 > 0) {
-        var_dump('ODD');
-        var_dump('General key:' . $key);
-        $oddTo = $key + 1;
-        var_dump('from odd:' . $separator . ' ; ' . 'to odd:' . $oddTo);
-        for ($i=$separator ; $i >= $oddTo ; $i--) {
-          var_dump('key: ' . $i);
-          $result[] = $root[$i];
-          $key++;
-          $ac += 2;
+    if (!$root) {
+      return false;
+    }
+
+    $level = 0;
+    $queue = [$root];
+
+    while ($queue) {
+      $levelSize = count($queue);
+      $levelValues = [];
+      $nodes = [];
+
+      for ($i = 0; $i < $levelSize; $i++) {
+        $current = array_shift($queue);
+
+        $levelValues[] = $current->val;
+        $nodes[] = $current;
+
+        if ($current->left) {
+          $queue[] = $current->left;
         }
-      } else {
-        var_dump('PAIR');
-        var_dump('General key:' . $key);
-        $pairFrom = $key + 1;
-        var_dump('from:' . $pairFrom . ' ; ' . 'to:' . $separator);
-        for ($k=$pairFrom ; $k <= $separator ; $k++) {
-          var_dump('General key: ' . $k);
-          $result[] = $root[$k];
-          $key++;
-          $ac += 2;
+        if ($current->right) {
+          $queue[] = $current->right;
+        }
+      }
+
+      if ($level % 2 == 1) {
+        $reversedValues = array_reverse($levelValues);
+        foreach ($nodes as $index => $node) {
+          $node->val = $reversedValues[$index];
         }
       }
 
       $level++;
     }
 
-    print_r($result);
-    return $result;
+    return $root;
   }
+
 }
-
-$solution  = new Solution();
-// $s = [2,3,5,8,13,21,34];
-// [2,5,3,8,13,21,34]
-
-$s = [7,13,11];
-// [7,11,13]
-
-// $s = [0,1,2,0,0,0,0,1,1,1,1,2,2,2,2];
-//   [0,2,1,0,0,0,0,2,2,2,2,1,1,1,1]
-$solution->reverseOddLevels($s);
